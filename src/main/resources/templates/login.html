@@ -1,63 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{base::layout(~{::section})}">
+	  th:replace="~{base::layout(~{::section})}">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Household Appliances - Login</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		body {
+             background-image: url('/img/login.jpeg'); /* Added background image */
+             background-size: cover;
+             background-position: center;
+             background-repeat: no-repeat;
+             min-height: 100vh;
+             margin: 0;
+         }
+        .card-header {
+             background-color: #B794F4; /* Pastel purple for card header */
+             border-bottom: 1px solid #CBD5E0; /* Light border */
+         }
+         .card-header p {
+             color: #D6BCFA; /* Softer pastel purple for the title */
+         }
+         .btn-login {
+             background-color: #81E6D9; /* Pastel teal for login button */
+             border: none;
+             color: #FFFFFF;
+         }
+         .btn-login:hover {
+             background-color: #4FD1C5; /* Slightly darker pastel teal on hover */
+         }
+         .fa-sign-in-alt {
+             color: #7F9CF5; /* Deeper pastel blue for sign-in logo */
+         }
+	</style>
 </head>
 <body>
-	<section>
-
-		<div class="container mt-5 p-5">
-			<div class="row">
-				<div class="col-md-6 p-5">
-					<img alt="" src="img/ecom.png" width="100%" height="400px">
-				</div>
-				<div class="col-md-6 mt-3 p-5">
-					<div class="card shadow p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-header">
-							<p class="fs-4 text-center">Login</p>
-							<div th:if="${param.error}"
-								class="alert alert-danger text-center">
-
-								<th:block
-									th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
-									[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
-								</th:block>
-
-
-
+<section>
+	<div class="container mt-5 p-5">
+		<div class="row align-items-center">
+			<div class="col-md-6 col-12 p-5 d-flex align-items-center justify-content-center">
+				<i class="fas fa-sign-in-alt animate__animated animate__fadeIn" style="font-size: 200px; text-shadow: 0 4px 8px rgba(0,0,0,0.1);"></i>
+			</div>
+			<div class="col-md-6 col-12 p-5">
+				<div class="card shadow p-3 bg-body-tertiary rounded">
+					<div class="card-header text-center rounded-top">
+						<p class="fs-4 mb-0"><i>Login Here.<i/></p>
+						<div th:if="${param.error}" class="alert alert-danger text-center mt-3" role="alert">
+							<th:block th:if="${session.SPRING_SECURITY_LAST_EXCEPTION!=null}">
+								[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+							</th:block>
+						</div>
+						<div th:if="${param.logout}" class="alert alert-success text-center mt-3" role="alert">
+							Logout Successfully
+						</div>
+					</div>
+					<div class="card-body">
+						<form action="/login" method="post">
+							<div class="mb-3">
+								<label for="username" class="form-label">Email</label>
+								<input required class="form-control" id="username" name="username" type="email" placeholder="Enter your email">
 							</div>
-
-							<div th:if="${param.logout}" class="alert alert-success">
-								Logout Sucessfully</div>
-						</div>
-						<div class="card-body">
-							<form action="/login" method="post">
-								<div class="mb-3">
-									<label class="form-label">Email</label> <input required
-										class="form-control" name="username" type="email">
-								</div>
-
-								<div class="mb-3">
-									<label class="form-label">Password</label> <input required
-										class="form-control" name="password" type="password">
-								</div>
-								<button type="submit"
-									class="btn bg-primary text-white col-md-12">Login</button>
-							</form>
-						</div>
-
-						<div class="card-footer text-center">
-							<a href="/forgot-password" class="text-decoration-none">Forgot Password</a><br>
-							Don't have an account ? <a href="#" class="text-decoration-none">Create
-								one </a>
-						</div>
+							<div class="mb-3">
+								<label for="password" class="form-label">Password</label>
+								<input required class="form-control" id="password" name="password" type="password" placeholder="Enter your password">
+							</div>
+							<button type="submit" class="btn btn-login col-md-12 py-2 rounded-md">Login</button>
+						</form>
+					</div>
+					<div class="card-footer text-center bg-light rounded-bottom">
+						<a href="/forgot-password" class="text-decoration-none text-primary">Forgot Password?</a><br>
+						<span class="text-muted">Don't have an account? </span>
+						<a href="/register" class="text-decoration-none text-primary">Create one</a>
 					</div>
 				</div>
 			</div>
 		</div>
-
-	</section>
+	</div>
+	</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
